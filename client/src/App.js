@@ -11,6 +11,7 @@ import Login from "./pages/Login"
 import Register from "./pages/Register"
 import Write from "./pages/Write"
 import Single from "./pages/Single"
+import "./style.scss"
 
 const Layout = () => {
   return (
