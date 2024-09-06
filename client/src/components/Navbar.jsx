@@ -1,11 +1,11 @@
 import React from 'react'
 
-const Write = () => {
+const Navbar = () => {
   return (
     <div>
-      Write
+      Navbar
     </div>
   )
 }
 
-export default Write
+export default Navbar

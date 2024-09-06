@@ -1,11 +1,11 @@
 import React from 'react'
 
-const Write = () => {
+const Footer = () => {
   return (
     <div>
-      Write
+      Footer
     </div>
   )
 }
 
-export default Write
+export default Footer
