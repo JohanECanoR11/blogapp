@@ -11,7 +11,7 @@ $lightGreen: #89D6F2;
       color: inherit;
     }
 
-    //Login & Registro
+    // Login & Registro
 
     .auth {
       display: flex;
@@ -62,7 +62,7 @@ $lightGreen: #89D6F2;
       }
     }
 
-    //Navegación
+    // Navegación
 
     .navbar {
       .container {
@@ -109,5 +109,21 @@ $lightGreen: #89D6F2;
         }
       }
     }
+
+    // Footer
+
+    footer {
+      margin-top: 100px;
+      padding: 20px;
+      background-color: $lightGreen;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 15px;
+      img {
+        height: 65px;
+      }
+    }
+
   }
 }
