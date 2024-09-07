@@ -9,7 +9,7 @@ export const register = (req, res) => {
     if (err) return res.json(err);
     if (data.length) return res.status(409).json("¡El usuario ya existe!");
 
-
+    
   });
 };
 
