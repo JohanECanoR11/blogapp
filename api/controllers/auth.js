@@ -35,7 +35,7 @@ export const login = (req, res) => {
 
   // Revisar usuario
 
-  const q = "SELECT * FROM user WHERE username = ?"
+  const q = "SELECT * FROM users WHERE username = ?"
 
   db.query(q,[req.body.username], (err,data) => {
     if (err) return res.json(err);
@@ -58,4 +58,8 @@ export const login = (req, res) => {
 
 export const logout = (req, res) => {
 
+  res.clearCookie("access_token", {
+    sameSite:"none",
+    secure:true
+  }).status(200).json("Se ha cerrado la sesión del usuario.")
 };
