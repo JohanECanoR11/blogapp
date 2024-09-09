@@ -15,7 +15,7 @@ const Register = () => {
 
   const handleChange = e => {
     setInputs(prev => ({...prev, [e.target.name]: e.target.value}))
-  }
+  };
 
   const handleSubmit = async e => {
     e.preventDefault()
@@ -25,7 +25,7 @@ const Register = () => {
     }catch(err){
       setError(err.response.data);
     }
-  }
+  };
 
   return (
     <div  className='auth'>
