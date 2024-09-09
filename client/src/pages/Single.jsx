@@ -1,40 +1,65 @@
-import React from 'react'
-import Edit from '../img/edit.png'
-import Delete from '../img/delete.png'
-import { Link } from 'react-router-dom'
-import Menu from '../components/Menu'
+import React, { useContext, useEffect, useState } from 'react';
+import Edit from '../img/edit.png';
+import Delete from '../img/delete.png';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import Menu from '../components/Menu';
+import axios from 'axios';
+import moment from "moment";
+import { AuthContext } from "../context/authContext";
 
 const Single = () => {
+
+  const [post, setPost] = useState({});
+
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const postId = location.pathname.split("/")[2];
+
+  const {currentUser} = useContext(AuthContext);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await axios.get(`/posts/${postId}`);
+        setPost(res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchData();
+  }, [postId]);
+
+  const handleDelete = async () => {
+    try {
+      await axios.delete(`/posts/${postId}`);
+      navigate("/");
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <div className='single'>
       <div className="content">
-        <img src="" alt="" />
+        <img src={post?.img} alt="" />
         <div className="user">
-          {/* <img src="" alt="" /> */}
-          <img src="https://bootdey.com/img/Content/avatar/avatar5.png"  alt="" class="superbox-img"/>
+          {post.userImg &&<img src={post.userImg} alt="" />}
           <div className="info">
-            <span>Johan</span>
-            <p>Publicado hace 2 días</p>
+            <span>{post.username}</span>
+            <p>Publicado {moment(post.date).fromNow()}</p>
           </div>
-          <div className="edit">
+          {currentUser.username === post.username && <div className="edit">
             <Link to={`/write?edit=2`}>
               <img src={Edit} alt="edit" />
             </Link>            
-            <img src={Delete} alt="delete" />
-          </div>
+            <img onClick={handleDelete} src={Delete} alt="delete" />
+          </div>}
         </div>
-        <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit.</h1>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel veritatis iste sit, possimus temporibus, soluta tempore, alias deleniti aut quo velit numquam labore nam blanditiis illo eligendi nemo! Ipsa, tenetur. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deleniti libero necessitatibus vitae, magni culpa dignissimos veritatis vero ea iste quibusdam minus similique animi? Cumque ab deleniti in et, impedit nobis.
-          <br /><br />
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel veritatis iste sit, possimus temporibus, soluta tempore, alias deleniti aut quo velit numquam labore nam blanditiis illo eligendi nemo! Ipsa, tenetur. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deleniti libero necessitatibus vitae, magni culpa dignissimos veritatis vero ea iste quibusdam minus similique animi? Cumque ab deleniti in et, impedit nobis.
-          <br /><br />
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel veritatis iste sit, possimus temporibus, soluta tempore, alias deleniti aut quo velit numquam labore nam blanditiis illo eligendi nemo! Ipsa, tenetur. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deleniti libero necessitatibus vitae, magni culpa dignissimos veritatis vero ea iste quibusdam minus similique animi? Cumque ab deleniti in et, impedit nobis.
-          <br /><br />
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel veritatis iste sit, possimus temporibus, soluta tempore, alias deleniti aut quo velit numquam labore nam blanditiis illo eligendi nemo! Ipsa, tenetur. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deleniti libero necessitatibus vitae, magni culpa dignissimos veritatis vero ea iste quibusdam minus similique animi? Cumque ab deleniti in et, impedit nobis.Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel veritatis iste sit, possimus temporibus, soluta tempore, alias deleniti aut quo velit numquam labore nam blanditiis illo eligendi nemo! Ipsa, tenetur. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deleniti libero necessitatibus vitae, magni culpa dignissimos veritatis vero ea iste quibusdam minus similique animi? Cumque ab deleniti in et, impedit nobis.
-        </p>
+        <h1>{post.title}</h1>
+        {post.desc}
       </div>
-      <Menu />
+      <Menu cat={post.cat}/>
     </div>
   );
 };

@@ -11,25 +11,27 @@ const Navbar = () => {
     <div className='navbar'>
       <div className="container">
         <div className="logo">
-          <img src={Logo} alt="logo_blogapp" />
+          <Link to="/">
+            <img src={Logo} alt="logo_blogapp" />
+          </Link>          
         </div>
         <div className="links">
           <Link className='link' to="/?cat=art">
             <h6>ARTE</h6>
           </Link>
-          <Link className='link' to="/?cat=art">
+          <Link className='link' to="/?cat=science">
             <h6>CIENCIA</h6>
           </Link>
-          <Link className='link' to="/?cat=art">
+          <Link className='link' to="/?cat=tecnology">
             <h6>TECNOLOGÍA</h6>
           </Link>
-          <Link className='link' to="/?cat=art">
+          <Link className='link' to="/?cat=cinema">
             <h6>CINE</h6>
           </Link>
-          <Link className='link' to="/?cat=art">
+          <Link className='link' to="/?cat=design">
             <h6>DISEÑO</h6>
           </Link>
-          <Link className='link' to="/?cat=art">
+          <Link className='link' to="/?cat=food">
             <h6>COMIDA</h6>
           </Link>
           <span>{currentUser?.username}</span>
